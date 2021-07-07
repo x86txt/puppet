@@ -1,0 +1,181 @@
+## base module to set common settings across all servers
+class base_module {
+
+## install necessary packages
+$base_packages = ['net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'curl',
+                  'mlocate', 'dnsutils', 'whois', 'traceroute', 'nload',
+                  'vnstat', 'snmpd', 'ansible', 'lm-sensors', 'xz-utils']
+
+package { $base_packages:
+  ensure  => latest,
+}
+
+
+# keep root cron up-to-date
+file {'/var/spool/cron/crontabs/root':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0600',
+  source => 'puppet:///modules/base_module/common/root_cron',
+}
+
+# fix ufw logging to syslog
+file {'/etc/rsyslog.d/20-ufw.conf':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  source => 'puppet:///modules/base_module/common/20-ufw.conf',
+}
+
+# fix ufw logging to syslog
+file {'/etc/rsyslog.d/40-snmp-statfs.conf':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  source => 'puppet:///modules/base_module/common/40-snmp-statfs.conf',
+}
+
+service {'rsyslog':
+  ensure    => running,
+  enable    => true,
+  subscribe => File[ ['/etc/rsyslog.d/20-ufw.conf'], ['/etc/rsyslog.d/40-snmp-statfs.conf'] ],
+}
+
+# configure snmpd
+file { '/etc/snmp/snmpd.conf':
+  ensure  => present,
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',
+  source  => 'puppet:///modules/base_module/common/snmpd.conf',
+  require => Package['snmpd'],
+}
+
+service { 'snmpd':
+  ensure    => running,
+  enable    => true,
+  subscribe => File['/etc/snmp/snmpd.conf']
+}
+
+## add unprivileged user matt with sudo rights
+user { 'matt':
+  ensure         => present,
+  groups         => 'sudo',
+  managehome     => true,
+  purge_ssh_keys => '/home/matt/.ssh/authorized_keys',
+}
+
+ssh_authorized_key { 'matt_ssh_key':
+  ensure => present,
+  user   => 'matt',
+  type   => 'ssh-ed25519',
+  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIHKgs2tT2kgxwSMXfjLZeHJ6q+AcN7hXaPEpLY1tzAEh',
+}
+
+## let's enable passwordless sudo
+file { '/etc/sudoers':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0440',
+  source => 'puppet:///modules/base_module/common/sudoers'
+}
+
+## Let's customize our motd with screenfetch
+# remove execute permissions to existing motd file
+file { '/etc/update-motd.d/':
+  ensure  => directory,
+  recurse => true,
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',
+}
+
+## place new custom motd file
+file { '/etc/update-motd.d/01-custom':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0755',
+  source => 'puppet:///modules/base_module/common/01-custom',
+}
+
+file {'/usr/bin/screenfetch':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0774',
+  source => 'puppet:///modules/base_module/common/screenfetch-dev',
+}
+
+# remove landscape info
+file {'/etc/update-motd.d/50-landscape-sysinfo':
+  ensure => absent,
+}
+
+# prefer ipv4, since gigamonster is faster than spectrum
+file { '/etc/gai.conf':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0644',
+  source => 'puppet:///modules/base_module/common/gai.conf',
+}
+
+# reboot if gai.conf modified
+exec { '/sbin/reboot --force':
+  subscribe   => File['/etc/gai.conf'],
+  refreshonly => true,
+}
+
+if $::hostname == 'git' {
+  file { '/etc/hosts':
+    ensure  => present,
+    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n${::ipaddress} git.x86txt.com\n",
+  }
+}
+else {
+# make sure /etc/hosts is consistent
+if ip_in_range($::ipaddress, '10.5.22.0/24') == true {
+  file { '/etc/hosts':
+    ensure  => present,
+    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n10.5.22.143 git.x86txt.com git\n",
+  }
+}
+elsif ip_in_range($::ipaddress, '10.5.30.0/24') == true {
+  file { '/etc/hosts':
+    ensure  => present,
+    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.clt ${::hostname}\n",
+  }
+}
+}
+# make sure puppet isn't running, since we're masterless
+service { 'puppet':
+  ensure => stopped,
+  enable => false,
+}
+
+# fix multipath vmware errors
+file {'/etc/multipathd.conf':
+  ensure => present,
+  source => 'puppet:///modules/base_module/common/multipath.conf',
+  notify => Service['multipathd'],
+}
+
+service {'multipathd':
+  ensure => running,
+}
+
+# make sure ufw is running
+service { 'ufw':
+  ensure => running,
+  enable => true,
+}
+
+# make sure rc.local is removed
+file {'/etc/rc.local':
+  ensure => absent,
+}
+
+} # end base_module

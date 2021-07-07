@@ -1,0 +1,33 @@
+{
+  "name": "deanwilson-ip_in_range",
+  "version": "0.0.6",
+  "author": "deanwilson",
+  "summary": "A Puppet function to determine if an IPv4 address is within the given IPv4 CIDR",
+  "license": "Apache-2.0",
+  "source": "https://github.com/deanwilson/puppet-ip_in_range.git",
+  "project_page": "https://github.com/deanwilson/puppet-ip_in_range",
+  "issues_url": "https://github.com/deanwilson/puppet-ip_in_range/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.2.2 <7.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat"
+    },
+    {
+      "operatingsystem": "Ubuntu"
+    },
+    {
+      "operatingsystem": "Debian"
+    },
+    {
+      "operatingsystem": "Fedora"
+    },
+    {
+      "operatingsystem": "CentOS"
+    }
+  ]
+}
