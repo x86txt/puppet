@@ -10,6 +10,12 @@ package { $base_packages:
   ensure  => latest,
 }
 
+# add our system-wide alias to execute a puppet run
+file_line {'puppet sequence':
+  ensure => present,
+  path   => '/etc/bash.bashrc',
+  line   => 'alias runpup=\"cd /etc/puppetlabs/code && /usr/bin/git pull && /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/manifests/site.pp\"',
+}
 
 # keep root cron up-to-date
 file {'/var/spool/cron/crontabs/root':
