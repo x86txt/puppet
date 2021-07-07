@@ -129,27 +129,11 @@ exec { '/sbin/reboot --force':
   refreshonly => true,
 }
 
-if $::hostname == 'git' {
-  file { '/etc/hosts':
+file { '/etc/hosts':
     ensure  => present,
-    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n${::ipaddress} git.x86txt.com\n",
-  }
+    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n",
 }
-else {
-# make sure /etc/hosts is consistent
-if ip_in_range($::ipaddress, '10.5.22.0/24') == true {
-  file { '/etc/hosts':
-    ensure  => present,
-    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n10.5.22.143 git.x86txt.com git\n",
-  }
-}
-elsif ip_in_range($::ipaddress, '10.5.30.0/24') == true {
-  file { '/etc/hosts':
-    ensure  => present,
-    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.clt ${::hostname}\n",
-  }
-}
-}
+
 # make sure puppet isn't running, since we're masterless
 service { 'puppet':
   ensure => stopped,
