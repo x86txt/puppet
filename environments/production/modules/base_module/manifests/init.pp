@@ -14,7 +14,7 @@ package { $base_packages:
 file_line {'puppet sequence':
   ensure => present,
   path   => '/etc/bash.bashrc',
-  line   => 'alias runpup=\"cd /etc/puppetlabs/code && /usr/bin/git pull && /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/manifests/site.pp\"',
+  line   => 'alias runpup="cd /etc/puppetlabs/code && /usr/bin/git pull && /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/manifests/site.pp"',
 }
 
 # keep root cron up-to-date
