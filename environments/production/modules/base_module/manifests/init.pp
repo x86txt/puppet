@@ -79,6 +79,13 @@ ssh_authorized_key { 'matt_ssh_key':
   key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIHKgs2tT2kgxwSMXfjLZeHJ6q+AcN7hXaPEpLY1tzAEh',
 }
 
+ssh_authorized_key { 'matt_ssh_rsa_key':
+  ensure => present,
+  user   => 'matt',
+  type   => 'ssh-rsa',
+  key    => 'AAAAB3NzaC1yc2EAAAADAQABAAABgQDDhSNRg62NTrHX94+6h1ZQjb+qGEiqLhENe0jY/j0sWB1DKkKeZOVIK37yO4zT//gw6B0quaceL3tax168NYk4VHmkE87R9lYmcFQIJe/dUF24LhcHTEAYlBQAQDPK0sCy0yEd2Ivwd6v3JAOdDBqj7jafMRJQIUE8wKocGsRgD/xySpgxH7o8qxJnPGlZyXQ9a3thwCZeLqc6Hjt2XlXQLx6vdWK8xwjAqWdM4+8wKqFmi/S6kw5kkoeV2ao+9tcbcIwBFg/q5uHJVveoAjb+ia8HCZmg7042XwG5FhOJupE/kuvrIwO7auv7dIia0dc4VnO+mvMGVJiGaBeNMfhvTfHp3Z3ZGgHVkh44Txm44QXWG+1FJBbOEudAsQCPBsCp2tr+awpLNIDqnIY0hEXlzFW9xhJk42Y89jg1LouYwbTw5uNmi97WOJQWWQ41JKx5GlksjMZZGhM8YcI0SGGBqRh1WJr9w5x4Hx0bem42nMiYb7zNWxKMA+HGp+o27Y8=',
+}
+
 ## let's enable passwordless sudo
 file { '/etc/sudoers':
   ensure => present,
