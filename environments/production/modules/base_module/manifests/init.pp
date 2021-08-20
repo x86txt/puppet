@@ -4,7 +4,7 @@ class base_module {
 ## install necessary packages
 $base_packages = ['net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'curl',
                   'mlocate', 'dnsutils', 'whois', 'traceroute', 'nload',
-                  'vnstat', 'snmpd', 'ansible', 'lm-sensors', 'xz-utils']
+                  'snmpd', 'lm-sensors', 'xz-utils']
 
 package { $base_packages:
   ensure  => latest,
@@ -14,16 +14,16 @@ package { $base_packages:
 file_line {'puppet sequence':
   ensure => present,
   path   => '/etc/bash.bashrc',
-  line   => 'alias runpup="cd /etc/puppetlabs/code && /usr/bin/git pull && /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/manifests/site.pp"',
+  line   => 'alias runpup="cd /etc/puppetlabs/code && /usr/bin/git pull && /usr/bin/puppet apply /etc/puppetlabs/code/manifests/site.pp"',
 }
 
 # keep root cron up-to-date
-file {'/var/spool/cron/crontabs/root':
+file {'/etc/cron.d/puppet':
   ensure => present,
   owner  => 'root',
   group  => 'root',
   mode   => '0600',
-  source => 'puppet:///modules/base_module/common/root_cron',
+  source => 'puppet:///modules/base_module/common/puppet_cron',
 }
 
 # fix ufw logging to syslog
@@ -76,14 +76,14 @@ ssh_authorized_key { 'matt_ssh_key':
   ensure => present,
   user   => 'matt',
   type   => 'ssh-ed25519',
-  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIItoYxbDo8abECvF3yRU8EEAY4kL3kCL83GpdTNpcIUz',
+  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIN34NX4NTj1OlxhbqzFUcI4V8dVPUABnl4AipeGL8f9Y',
 }
 
-ssh_authorized_key { 'matt_ssh_rsa_key':
+ssh_authorized_key { 'matt_ssh_key_2':
   ensure => present,
   user   => 'matt',
-  type   => 'ssh-rsa',
-  key    => 'AAAAB3NzaC1yc2EAAAADAQABAAABgQDDhSNRg62NTrHX94+6h1ZQjb+qGEiqLhENe0jY/j0sWB1DKkKeZOVIK37yO4zT//gw6B0quaceL3tax168NYk4VHmkE87R9lYmcFQIJe/dUF24LhcHTEAYlBQAQDPK0sCy0yEd2Ivwd6v3JAOdDBqj7jafMRJQIUE8wKocGsRgD/xySpgxH7o8qxJnPGlZyXQ9a3thwCZeLqc6Hjt2XlXQLx6vdWK8xwjAqWdM4+8wKqFmi/S6kw5kkoeV2ao+9tcbcIwBFg/q5uHJVveoAjb+ia8HCZmg7042XwG5FhOJupE/kuvrIwO7auv7dIia0dc4VnO+mvMGVJiGaBeNMfhvTfHp3Z3ZGgHVkh44Txm44QXWG+1FJBbOEudAsQCPBsCp2tr+awpLNIDqnIY0hEXlzFW9xhJk42Y89jg1LouYwbTw5uNmi97WOJQWWQ41JKx5GlksjMZZGhM8YcI0SGGBqRh1WJr9w5x4Hx0bem42nMiYb7zNWxKMA+HGp+o27Y8=',
+  type   => 'ssh-ed25519',
+  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIEcio/kFKORFcz3SyEd9N84NK2vDvKizblpxfoG1eTQW',
 }
 
 ## let's enable passwordless sudo
@@ -106,12 +106,12 @@ file { '/etc/update-motd.d/':
 }
 
 ## place new custom motd file
-file { '/etc/update-motd.d/01-custom':
+file { '/etc/update-motd.d/01-screenfetch':
   ensure => present,
   owner  => 'root',
   group  => 'root',
   mode   => '0755',
-  source => 'puppet:///modules/base_module/common/01-custom',
+  source => 'puppet:///modules/base_module/common/01-screenfetch',
 }
 
 file {'/usr/bin/screenfetch':

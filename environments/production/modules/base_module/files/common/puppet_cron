@@ -1,0 +1,1 @@
+*/1 * * * * root cd /etc/puppet/code && /usr/bin/git pull && /usr/bin/puppet apply /etc/puppet/code/manifests/site.pp
