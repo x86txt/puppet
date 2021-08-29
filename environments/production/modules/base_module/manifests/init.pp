@@ -16,7 +16,7 @@ file {'/etc/profile.d/disableRubyPuppetWarn.sh':
   owner   => 'root',
   group   => 'root',
   mode    => '0600',
-  content => "managed by puppet\nexport RUBYOPT='-W0'\n"
+  content => "#managed by puppet\nexport RUBYOPT='-W0'\n"
 }
 
 # add our system-wide alias to execute a puppet run
