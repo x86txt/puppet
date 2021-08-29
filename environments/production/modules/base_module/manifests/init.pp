@@ -15,7 +15,7 @@ file {'/etc/profile.d/disableRubyPuppetWarn.sh':
   ensure  => present,
   owner   => 'root',
   group   => 'root',
-  mode    => '0600',
+  mode    => '0755',
   content => "#managed by puppet\nexport RUBYOPT='-W0'\n"
 }
 
