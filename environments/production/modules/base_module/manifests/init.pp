@@ -4,10 +4,19 @@ class base_module {
 ## install necessary packages
 $base_packages = ['net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'curl',
                   'mlocate', 'dnsutils', 'whois', 'traceroute', 'nload',
-                  'snmpd', 'lm-sensors', 'xz-utils']
+                  'snmpd', 'lm-sensors', 'xz-utils', 'puppet']
 
 package { $base_packages:
   ensure  => latest,
+}
+
+# clear puppet ruby warning
+file {'/etc/profile.d/disableRubyPuppetWarn.sh':
+  ensure  => present,
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0600',
+  content => "managed by puppet\nexport RUBYOPT='-W0'\n"
 }
 
 # add our system-wide alias to execute a puppet run
