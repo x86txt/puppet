@@ -85,14 +85,7 @@ ssh_authorized_key { 'matt_ssh_key':
   ensure => present,
   user   => 'matt',
   type   => 'ssh-ed25519',
-  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIN34NX4NTj1OlxhbqzFUcI4V8dVPUABnl4AipeGL8f9Y',
-}
-
-ssh_authorized_key { 'matt_ssh_key_2':
-  ensure => present,
-  user   => 'matt',
-  type   => 'ssh-ed25519',
-  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIEcio/kFKORFcz3SyEd9N84NK2vDvKizblpxfoG1eTQW',
+  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIFc6qozK4DqC5hxsi2ifrFsDY64ytgI4xQKQ+Vv6RYRw',
 }
 
 ## let's enable passwordless sudo
