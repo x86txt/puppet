@@ -151,26 +151,26 @@ exec { '/sbin/reboot --force':
   refreshonly => true,
 }
 
-if $::hostname == 'ceph1' {
+if $::hostname == 'ceph-deploy' {
 
   file {'/etc/hosts':
     ensure => present,
     source => 'puppet:///modules/base_module/common/ceph.hosts',
   }
 }
-elsif $::hostname == 'ceph2' {
+elsif $::hostname == 'ceph-osd1' {
   file {'/etc/hosts':
     ensure => present,
     source => 'puppet:///modules/base_module/common/ceph.hosts',
   }
 }
-elsif $::hostname == 'ceph3' {
+elsif $::hostname == 'ceph-osd2' {
   file {'/etc/hosts':
     ensure => present,
     source => 'puppet:///modules/base_module/common/ceph.hosts',
   }
 }
-elsif $::hostname == 'ceph4' {
+elsif $::hostname == 'ceph-osd3' {
   file {'/etc/hosts':
     ensure => present,
     source => 'puppet:///modules/base_module/common/ceph.hosts',
