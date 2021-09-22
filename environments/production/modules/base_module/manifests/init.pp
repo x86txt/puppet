@@ -183,14 +183,12 @@ else {
 }
 }
 
-if ( ($::hostname !~ "ceph1") or ($::hostname !~ "ceph2") or ($::hostname !~ "ceph3") or ($::hostname !~ "ceph4") ) {
-
+/**
 file { '/etc/hosts':
     ensure  => present,
     content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n",
 }
-
-}
+**/
 
 # make sure puppet isn't running, since we're masterless
 service { 'puppet':
