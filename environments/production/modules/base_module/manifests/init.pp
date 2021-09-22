@@ -88,6 +88,13 @@ ssh_authorized_key { 'matt_ssh_key':
   key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIFc6qozK4DqC5hxsi2ifrFsDY64ytgI4xQKQ+Vv6RYRw',
 }
 
+ssh_authorized_key { 'matt_ssh_key2':
+  ensure => present,
+  user   => 'matt',
+  type   => 'ssh-ed25519',
+  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIAjd6bCh+wk7Gksji1Q/73mnSTYEGhLeXzxHkkMhdXWI',
+}
+
 ## let's enable passwordless sudo
 file { '/etc/sudoers':
   ensure => present,
