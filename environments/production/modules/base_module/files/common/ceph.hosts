@@ -1,3 +1,4 @@
+127.0.0.1       localhost.localdomain localhost
 10.5.22.132     ceph1.x86txt.lan ceph1
 10.5.22.117     ceph2.x86txt.lan ceph2
 10.5.22.118     ceph3.x86txt.lan ceph3
