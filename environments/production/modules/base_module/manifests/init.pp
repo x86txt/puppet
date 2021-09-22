@@ -151,6 +151,38 @@ exec { '/sbin/reboot --force':
   refreshonly => true,
 }
 
+if $::hostname == 'ceph1' {
+
+  file {'/etc/hosts':
+    ensure => present,
+    source => 'puppet:///modules/base_module/common/ceph.hosts',
+  }
+}
+elsif $::hostname == 'ceph2' {
+  file {'/etc/hosts':
+    ensure => present,
+    source => 'puppet:///modules/base_module/common/ceph.hosts',
+  }
+}
+elsif $::hostname == 'ceph3' {
+  file {'/etc/hosts':
+    ensure => present,
+    source => 'puppet:///modules/base_module/common/ceph.hosts',
+  }
+}
+elsif $::hostname == 'ceph4' {
+  file {'/etc/hosts':
+    ensure => present,
+    source => 'puppet:///modules/base_module/common/ceph.hosts',
+  }
+}
+else {
+  file { '/etc/hosts':
+    ensure  => present,
+    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n",
+}
+}
+
 if ( ($::hostname !~ "ceph1") or ($::hostname !~ "ceph2") or ($::hostname !~ "ceph3") or ($::hostname !~ "ceph4") ) {
 
 file { '/etc/hosts':
