@@ -151,7 +151,7 @@ exec { '/sbin/reboot --force':
   refreshonly => true,
 }
 
-if $::hostname !~ 'ceph1' or $::hostname !~ 'ceph2' or $::hostname !~ 'ceph3' or $::hostname !~ 'ceph4' {
+if $::hostname !~ ('ceph1') or $::hostname !~ ('ceph2') or $::hostname !~ ('ceph3') or $::hostname !~ ('ceph4') {
 
 file { '/etc/hosts':
     ensure  => present,
