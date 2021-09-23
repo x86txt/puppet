@@ -31,7 +31,7 @@ file {'/etc/cron.d/puppet':
   ensure => present,
   owner  => 'root',
   group  => 'root',
-  mode   => '0600',
+  mode   => '0644',
   source => 'puppet:///modules/base_module/common/puppet_cron',
 }
 
