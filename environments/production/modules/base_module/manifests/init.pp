@@ -195,6 +195,11 @@ else {
 }
 }
 
+file {'/etc/hostname':
+  ensure  => present,
+  content => "#managed by puppet\n${::hostname}.x86txt.lan\n"
+}
+
 /**
 file { '/etc/hosts':
     ensure  => present,
