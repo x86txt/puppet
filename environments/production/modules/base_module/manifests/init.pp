@@ -237,7 +237,7 @@ file {'/etc/rc.local':
 
 # install netdata and attach it to x86txt.lan war room
 exec {'install netdata':
-  command => 'bash <(curl -Ss https://my-netdata.io/kickstart.sh) --dont-wait --non-interactive --claim-token cbLiaCjwPrBpvn24clG3R7StfvNnauuGqpZQJBgHUjLuJf9WHhKc9JaIHQvWyKY2Sf6C-G-xX0HdQX6sLnJkquZXuK6ntJ_yJKOrJThhmO-JbhG0ogp3jmF9R95dXvI9WFWLO_4 --claim-rooms 45ccf9dd-4893-4fda-b013-cfe2f37a6459 --claim-url https://app.netdata.cloud',
+  command => '/usr/bin/bash <(/usr/bin/curl -Ss https://my-netdata.io/kickstart.sh) --dont-wait --non-interactive --claim-token cbLiaCjwPrBpvn24clG3R7StfvNnauuGqpZQJBgHUjLuJf9WHhKc9JaIHQvWyKY2Sf6C-G-xX0HdQX6sLnJkquZXuK6ntJ_yJKOrJThhmO-JbhG0ogp3jmF9R95dXvI9WFWLO_4 --claim-rooms 45ccf9dd-4893-4fda-b013-cfe2f37a6459 --claim-url https://app.netdata.cloud',
   cwd     => '/tmp',
   creates => '/usr/sbin/netdata',
 }
