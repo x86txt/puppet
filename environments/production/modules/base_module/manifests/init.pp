@@ -239,6 +239,7 @@ file {'/etc/rc.local':
 exec {'install netdata':
   command => 'cd /tmp && /usr/bin/wget https://my-netdata.io/kickstart.sh && /usr/bin/bash /tmp/kickstart.sh --dont-wait --non-interactive --claim-token cbLiaCjwPrBpvn24clG3R7StfvNnauuGqpZQJBgHUjLuJf9WHhKc9JaIHQvWyKY2Sf6C-G-xX0HdQX6sLnJkquZXuK6ntJ_yJKOrJThhmO-JbhG0ogp3jmF9R95dXvI9WFWLO_4 --claim-rooms 45ccf9dd-4893-4fda-b013-cfe2f37a6459 --claim-url https://app.netdata.cloud',
   cwd     => '/tmp',
+  path    => ['/usr/bin', '/usr/sbin'],
   creates => '/usr/sbin/netdata',
 }
 
