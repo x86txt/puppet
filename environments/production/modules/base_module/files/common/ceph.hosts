@@ -1,8 +1,0 @@
-# managed by puppet
-127.0.0.1       localhost.localdomain localhost
-10.5.22.115     ceph-mon1.x86txt.lan ceph-mon1
-10.5.22.110     ceph-mon2.x86txt.lan ceph-mon2
-10.5.22.104     ceph-mon3.x86txt.lan ceph-mon3
-10.5.22.101     ceph-osd1.x86txt.lan ceph-osd1
-10.5.22.100     ceph-osd2.x86txt.lan ceph-osd2
-10.5.22.102     ceph-osd3.x86txt.lan ceph-osd3

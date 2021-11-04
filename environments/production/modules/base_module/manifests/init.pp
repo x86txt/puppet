@@ -151,61 +151,26 @@ exec { '/sbin/reboot --force':
   refreshonly => true,
 }
 
-if $::hostname == 'ceph-mon1' {
-
+if ip_in_range($::ipaddress, '192.168.1.0/24') == true {
   file {'/etc/hosts':
-    ensure => present,
-    source => 'puppet:///modules/base_module/common/ceph.hosts',
+    ensure  => present,
+    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.atl ${::hostname}\n",
   }
-}
-elsif $::hostname == 'ceph-mon2' {
-  file {'/etc/hosts':
-    ensure => present,
-    source => 'puppet:///modules/base_module/common/ceph.hosts',
-  }
-}
-elsif $::hostname == 'ceph-mon3' {
-  file {'/etc/hosts':
-    ensure => present,
-    source => 'puppet:///modules/base_module/common/ceph.hosts',
-  }
-}
-elsif $::hostname == 'ceph-osd1' {
-  file {'/etc/hosts':
-    ensure => present,
-    source => 'puppet:///modules/base_module/common/ceph.hosts',
-  }
-}
-elsif $::hostname == 'ceph-osd2' {
-  file {'/etc/hosts':
-    ensure => present,
-    source => 'puppet:///modules/base_module/common/ceph.hosts',
-  }
-}
-elsif $::hostname == 'ceph-osd3' {
-  file {'/etc/hosts':
-    ensure => present,
-    source => 'puppet:///modules/base_module/common/ceph.hosts',
+  file {'/etc/hostname':
+    ensure  => present,
+    content => "#managed by puppet\n${::hostname}.x86txt.atl\n"
   }
 }
 else {
   file { '/etc/hosts':
     ensure  => present,
     content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n",
-}
-}
-
-file {'/etc/hostname':
-  ensure  => present,
-  content => "#managed by puppet\n${::hostname}.x86txt.lan\n"
-}
-
-/**
-file { '/etc/hosts':
+  }
+  file {'/etc/hostname':
     ensure  => present,
-    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n",
+    content => "#managed by puppet\n${::hostname}.x86txt.lan\n"
+  }
 }
-**/
 
 # make sure puppet isn't running, since we're masterless
 service { 'puppet':
@@ -235,6 +200,7 @@ file {'/etc/rc.local':
   ensure => absent,
 }
 
+/*
 # install netdata and attach it to x86txt.lan war room
 exec {'install netdata':
   command => '/usr/bin/wget https://my-netdata.io/kickstart.sh && /usr/bin/bash /tmp/kickstart.sh --dont-wait --non-interactive --claim-token cbLiaCjwPrBpvn24clG3R7StfvNnauuGqpZQJBgHUjLuJf9WHhKc9JaIHQvWyKY2Sf6C-G-xX0HdQX6sLnJkquZXuK6ntJ_yJKOrJThhmO-JbhG0ogp3jmF9R95dXvI9WFWLO_4 --claim-rooms 45ccf9dd-4893-4fda-b013-cfe2f37a6459 --claim-url https://app.netdata.cloud',
@@ -242,5 +208,6 @@ exec {'install netdata':
   path    => ['/usr/bin', '/usr/sbin'],
   creates => '/usr/sbin/netdata',
 }
+*/
 
 } # end base_module
