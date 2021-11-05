@@ -1,0 +1,25 @@
+---
+
+version: 5
+
+:backends:
+  - yaml
+
+:hierarchy:
+  - "osfamily/%{::osfamily}"
+  - common
+
+:yaml:
+  :datadir: /etc/puppet/code/hiera
+
+ohmyzsh::installs:
+  matt:
+    set_sh: true
+  root:
+    set_sh: true
+
+ohmyzsh::themes:
+  matt:
+    theme: 'gentoo'
+  root:
+    theme: 'gentoo'
