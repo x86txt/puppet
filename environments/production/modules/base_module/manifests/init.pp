@@ -4,7 +4,7 @@ class base_module {
 ## install necessary packages
 $base_packages = ['net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'curl',
                   'mlocate', 'dnsutils', 'whois', 'traceroute', 'nload',
-                  'snmpd', 'lm-sensors', 'xz-utils', 'puppet']
+                  'snmpd', 'lm-sensors', 'xz-utils', 'puppet', 'zsh']
 
 package { $base_packages:
   ensure  => latest,
