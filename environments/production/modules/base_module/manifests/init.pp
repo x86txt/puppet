@@ -1,13 +1,20 @@
 ## base module to set common settings across all servers
 class base_module {
 
-  ## place our own apt repo
-  file {'/etc/apt/sources.list':
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-    source => 'puppet:///modules/base_module/common/focal.apt.list'
-  }
+## place our own apt repo
+file {'/etc/apt/sources.list':
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0644',
+  source => 'puppet:///modules/base_module/common/focal.apt.list',
+}
+
+# make sure we've got a clean apt cache
+exec {'apt refresh':
+  command     => '/usr/bin/apt clean && /usr/bin/apt update',
+  refreshonly => true,
+  subscribe   => File['/etc/apt/sources.list'],
+}
 
 ## install necessary packages
 $base_packages = ['net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'curl',
