@@ -1,6 +1,14 @@
 ## base module to set common settings across all servers
 class base_module {
 
+  ## place our own apt repo
+  file {'/etc/apt/sources.list':
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/base_module/common/focal.apt.list'
+  }
+
 ## install necessary packages
 $base_packages = ['net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'curl',
                   'mlocate', 'dnsutils', 'whois', 'traceroute', 'nload',
