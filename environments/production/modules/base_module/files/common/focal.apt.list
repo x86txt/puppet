@@ -16,8 +16,8 @@ deb-src https://mirror.atl.x86txt.com/ubuntu focal-updates multiverse
 deb https://mirror.atl.x86txt.com/ubuntu focal-backports main restricted universe multiverse
 deb-src https://mirror.atl.x86txt.com/ubuntu focal-backports main restricted universe multiverse
 
-deb http://us.archive.canonical.com/ubuntu focal partner
-deb-src http://us.archive.canonical.com/ubuntu focal partner
+#deb http://us.archive.canonical.com/ubuntu focal partner
+#deb-src http://us.archive.canonical.com/ubuntu focal partner
 
 deb https://mirror.atl.x86txt.com/ubuntu focal-security main restricted
 deb-src https://mirror.atl.x86txt.com/ubuntu focal-security main restricted
