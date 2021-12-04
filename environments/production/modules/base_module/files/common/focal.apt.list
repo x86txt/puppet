@@ -1,27 +1,27 @@
-deb https://mirror.atl.x86txt.com/ubuntu focal main restricted
-deb-src https://mirror.atl.x86txt.com/ubuntu focal main restricted
+deb http://atl.mirrors.clouvider.net/ubuntu focal main restricted
+deb-src http://atl.mirrors.clouvider.net/ubuntu focal main restricted
 
-deb https://mirror.atl.x86txt.com/ubuntu focal-updates main restricted
-deb-src https://mirror.atl.x86txt.com/ubuntu focal-updates main restricted
-deb https://mirror.atl.x86txt.com/ubuntu focal universe
-deb-src https://mirror.atl.x86txt.com/ubuntu focal universe
-deb https://mirror.atl.x86txt.com/ubuntu focal-updates universe
-deb-src https://mirror.atl.x86txt.com/ubuntu focal-updates universe
+deb http://atl.mirrors.clouvider.net/ubuntu focal-updates main restricted
+deb-src http://atl.mirrors.clouvider.net/ubuntu focal-updates main restricted
+deb http://atl.mirrors.clouvider.net/ubuntu focal universe
+deb-src http://atl.mirrors.clouvider.net/ubuntu focal universe
+deb http://atl.mirrors.clouvider.net/ubuntu focal-updates universe
+deb-src http://atl.mirrors.clouvider.net/ubuntu focal-updates universe
 
-deb https://mirror.atl.x86txt.com/ubuntu focal multiverse
-deb-src https://mirror.atl.x86txt.com/ubuntu focal multiverse
-deb https://mirror.atl.x86txt.com/ubuntu focal-updates multiverse
-deb-src https://mirror.atl.x86txt.com/ubuntu focal-updates multiverse
+deb http://atl.mirrors.clouvider.net/ubuntu focal multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu focal multiverse
+deb http://atl.mirrors.clouvider.net/ubuntu focal-updates multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu focal-updates multiverse
 
-deb https://mirror.atl.x86txt.com/ubuntu focal-backports main restricted universe multiverse
-deb-src https://mirror.atl.x86txt.com/ubuntu focal-backports main restricted universe multiverse
+deb http://atl.mirrors.clouvider.net/ubuntu focal-backports main restricted universe multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu focal-backports main restricted universe multiverse
 
 #deb http://us.archive.canonical.com/ubuntu focal partner
 #deb-src http://us.archive.canonical.com/ubuntu focal partner
 
-deb https://mirror.atl.x86txt.com/ubuntu focal-security main restricted
-deb-src https://mirror.atl.x86txt.com/ubuntu focal-security main restricted
-deb https://mirror.atl.x86txt.com/ubuntu focal-security universe
-deb-src https://mirror.atl.x86txt.com/ubuntu focal-security universe
-deb https://mirror.atl.x86txt.com/ubuntu focal-security multiverse
-deb-src https://mirror.atl.x86txt.com/ubuntu focal-security multiverse
+deb http://atl.mirrors.clouvider.net/ubuntu focal-security main restricted
+deb-src http://atl.mirrors.clouvider.net/ubuntu focal-security main restricted
+deb http://atl.mirrors.clouvider.net/ubuntu focal-security universe
+deb-src http://atl.mirrors.clouvider.net/ubuntu focal-security universe
+deb http://atl.mirrors.clouvider.net/ubuntu focal-security multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu focal-security multiverse
