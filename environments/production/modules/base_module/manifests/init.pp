@@ -219,6 +219,24 @@ file {'/etc/rc.local':
   ensure => absent,
 }
 
+# remove vmware customization files that break dns
+file { '/etc/netplan/00-installer-config.yaml.BeforeVMwareCustomization':
+  ensure => absent,
+  notify => Exec['/usr/sbin/netplan apply'],
+}
+
+file { '/etc/netplan/99-netcfg-vmware.yaml':
+  ensure => absent,
+  notify => Exec['/usr/sbin/netplan apply'],
+}
+
+# re-apply netplan if either vmware config file is removed
+exec {'/usr/sbin/netplan apply':
+  refreshonly => true,
+  subscribe   => [File['/etc/netplan/00-installer-config.yaml.BeforeVMwareCustomization'],
+                  File['/etc/netplan/99-netcfg-vmware.yaml'] ]
+}
+
 /*
 # install netdata and attach it to x86txt.lan war room
 exec {'install netdata':
