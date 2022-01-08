@@ -34,6 +34,13 @@ file {'/etc/profile.d/disableRubyPuppetWarn.sh':
   content => "#managed by puppet\nexport RUBYOPT='-W0'\n"
 }
 
+file_line { '/etc/zsh/zshenv':
+  ensure => present,
+  match  => "^export RUBYOPT*",
+  path   => '/etc/zsh/zshenv',
+  line   => 'export RUBYOPT=\'-W0\''
+}
+
 # add our system-wide alias to execute a puppet run
 file_line {'puppet sequence':
   ensure => present,
