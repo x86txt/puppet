@@ -111,8 +111,7 @@ ssh_authorized_key { 'matt_ssh_key2':
 }
 
 # let's enable oh-my-zsh, set the shell to zsh, enable auto-update, and the theme to gentoo
-ohmyzsh::install { ['root', 'matt']: set_sh => true }
-ohmyzsh::install { ['root', 'matt']: disable_auto_update => true }
+ohmyzsh::install { ['root', 'matt']: set_sh => true, disable_auto_update => true }
 ohmyzsh::theme { ['root', 'matt']: theme => 'gentoo' }
 
 ## let's enable passwordless sudo
