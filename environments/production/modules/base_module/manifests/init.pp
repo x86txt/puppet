@@ -110,12 +110,11 @@ ssh_authorized_key { 'matt_ssh_key2':
   key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIAjd6bCh+wk7Gksji1Q/73mnSTYEGhLeXzxHkkMhdXWI',
 }
 
-/*
 # let's enable oh-my-zsh, set the shell to zsh, enable auto-update, and the theme to gentoo
-ohmyzsh::install { ['root', 'matt']: set_sh => true }
+ohmyzsh::install { ['root', 'matt']: set_sh => true, disable_auto_update => true }
 ohmyzsh::theme { ['root', 'matt']: theme => 'gentoo' }
-*/
 
+/*
 file {'/home/matt/.oh-my-zsh':
   ensure  => absent,
   recurse => true,
@@ -127,6 +126,7 @@ file {'/root/.oh-my-zsh':
   recurse => true,
   force   => true,
 }
+*/
 
 ## let's enable passwordless sudo
 file { '/etc/sudoers':
