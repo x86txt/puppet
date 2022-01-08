@@ -116,7 +116,13 @@ ohmyzsh::install { ['root', 'matt']: set_sh => true }
 ohmyzsh::theme { ['root', 'matt']: theme => 'gentoo' }
 */
 
-file {'/home/$user/.oh-my-zsh':
+file {'/home/matt/.oh-my-zsh':
+  ensure  => absent,
+  recurse => true,
+  force   => true,
+}
+
+file {'/root/.oh-my-zsh':
   ensure  => absent,
   recurse => true,
   force   => true,
