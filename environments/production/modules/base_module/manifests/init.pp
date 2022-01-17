@@ -48,6 +48,13 @@ file_line {'puppet sequence':
   line   => 'alias runpup="cd /etc/puppetlabs/code && /usr/bin/git pull && /usr/bin/puppet apply /etc/puppetlabs/code/manifests/site.pp"',
 }
 
+# tell dhclient ot send fqdn to dhcp server for dyndns registration
+file_line {'dhclient update':
+  ensure => present,
+  path   => '/etc/dhcp/dhclient.conf',
+  line   => 'send fqdn.server-update on;',
+}
+
 # keep root cron up-to-date
 file {'/etc/cron.d/puppet':
   ensure => present,
@@ -118,8 +125,8 @@ ssh_authorized_key { 'matt_ssh_key2':
 }
 
 # let's enable oh-my-zsh, set the shell to zsh, enable auto-update, and the theme to gentoo
-ohmyzsh::install { ['root', 'matt']: set_sh => true, disable_auto_update => true }
-ohmyzsh::theme { ['root', 'matt']: theme => 'gentoo' }
+#ohmyzsh::install { ['root', 'matt']: set_sh => true, disable_auto_update => true }
+#ohmyzsh::theme { ['root', 'matt']: theme => 'gentoo' }
 
 /*
 file {'/home/matt/.oh-my-zsh':
