@@ -1,8 +1,6 @@
 ## base module to set common settings across all servers
 class base_module {
 
-
-
 ## place our own apt repo
 file {'/etc/apt/sources.list':
   owner  => 'root',
@@ -15,7 +13,7 @@ file {'/etc/apt/sources.list':
 exec {'apt refresh':
   command     => '/usr/bin/apt clean && /usr/bin/apt update',
   refreshonly => true,
-  subscribe   => [ File['/etc/apt/sources.list'], Exec['/usr/bin/curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo /usr/bin/bash'] ]
+  subscribe   => File['/etc/apt/sources.list'],
 }
 
 ## install necessary packages
@@ -233,9 +231,11 @@ exec {'/usr/sbin/netplan apply':
                   File['/etc/netplan/99-netcfg-vmware.yaml'] ]
 }
 
+/*
 # let's add speedtest.net cli, it's always handy to have around
 exec {'/usr/bin/curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo /usr/bin/bash':
   creates => '/etc/apt/sources.list.d/ookla_speedtest-cli.list',
 }
+*/
 
 } # end base_module
