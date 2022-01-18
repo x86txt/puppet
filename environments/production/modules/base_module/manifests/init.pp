@@ -1,12 +1,14 @@
 ## base module to set common settings across all servers
 class base_module {
 
+
+
 ## place our own apt repo
 file {'/etc/apt/sources.list':
   owner  => 'root',
   group  => 'root',
   mode   => '0644',
-  source => 'puppet:///modules/base_module/common/focal.apt.list',
+  source => "puppet:///modules/base_module/${facts['os']['distro']['codename'].apt.list}",
 }
 
 # make sure we've got a clean apt cache

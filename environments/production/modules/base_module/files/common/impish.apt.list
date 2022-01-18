@@ -1,0 +1,27 @@
+deb http://atl.mirrors.clouvider.net/ubuntu impish main restricted
+deb-src http://atl.mirrors.clouvider.net/ubuntu impish main restricted
+
+deb http://atl.mirrors.clouvider.net/ubuntu impish-updates main restricted
+deb-src http://atl.mirrors.clouvider.net/ubuntu impish-updates main restricted
+deb http://atl.mirrors.clouvider.net/ubuntu impish universe
+deb-src http://atl.mirrors.clouvider.net/ubuntu impish universe
+deb http://atl.mirrors.clouvider.net/ubuntu impish-updates universe
+deb-src http://atl.mirrors.clouvider.net/ubuntu impish-updates universe
+
+deb http://atl.mirrors.clouvider.net/ubuntu impish multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu impish multiverse
+deb http://atl.mirrors.clouvider.net/ubuntu impish-updates multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu impish-updates multiverse
+
+deb http://atl.mirrors.clouvider.net/ubuntu impish-backports main restricted universe multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu impish-backports main restricted universe multiverse
+
+#deb http://us.archive.canonical.com/ubuntu impish partner
+#deb-src http://us.archive.canonical.com/ubuntu impish partner
+
+deb http://atl.mirrors.clouvider.net/ubuntu impish-security main restricted
+deb-src http://atl.mirrors.clouvider.net/ubuntu impish-security main restricted
+deb http://atl.mirrors.clouvider.net/ubuntu impish-security universe
+deb-src http://atl.mirrors.clouvider.net/ubuntu impish-security universe
+deb http://atl.mirrors.clouvider.net/ubuntu impish-security multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu impish-security multiverse
