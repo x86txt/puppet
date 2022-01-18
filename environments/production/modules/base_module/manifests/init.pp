@@ -180,22 +180,14 @@ exec { '/sbin/reboot --force':
   refreshonly => true,
 }
 
-if ip_in_range($::ipaddress, '192.168.1.0/24') == true {
-  file {'/etc/hosts':
-    ensure  => present,
-    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.atl ${::hostname}\n",
-  }
-  file {'/etc/hostname':
-    ensure  => present,
-    content => "#managed by puppet\n${::hostname}.x86txt.atl\n"
-  }
-}
-else {
-  file { '/etc/hosts':
+
+file { '/etc/hosts':
     ensure  => present,
     content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n",
   }
-  file {'/etc/hostname':
+
+# let's make sure our hostname is correct
+file {'/etc/hostname':
     ensure  => present,
     content => "#managed by puppet\n${::hostname}.x86txt.lan\n"
   }
