@@ -124,24 +124,6 @@ ssh_authorized_key { 'matt_ssh_key2':
   key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIAjd6bCh+wk7Gksji1Q/73mnSTYEGhLeXzxHkkMhdXWI',
 }
 
-# let's enable oh-my-zsh, set the shell to zsh, enable auto-update, and the theme to gentoo
-#ohmyzsh::install { ['root', 'matt']: set_sh => true, disable_auto_update => true }
-#ohmyzsh::theme { ['root', 'matt']: theme => 'gentoo' }
-
-/*
-file {'/home/matt/.oh-my-zsh':
-  ensure  => absent,
-  recurse => true,
-  force   => true,
-}
-
-file {'/root/.oh-my-zsh':
-  ensure  => absent,
-  recurse => true,
-  force   => true,
-}
-*/
-
 ## let's enable passwordless sudo
 file { '/etc/sudoers':
   ensure => present,
@@ -265,14 +247,9 @@ exec {'/usr/sbin/netplan apply':
                   File['/etc/netplan/99-netcfg-vmware.yaml'] ]
 }
 
-/*
-# install netdata and attach it to x86txt.lan war room
-exec {'install netdata':
-  command => '/usr/bin/wget https://my-netdata.io/kickstart.sh && /usr/bin/bash /tmp/kickstart.sh --dont-wait --non-interactive --claim-token cbLiaCjwPrBpvn24clG3R7StfvNnauuGqpZQJBgHUjLuJf9WHhKc9JaIHQvWyKY2Sf6C-G-xX0HdQX6sLnJkquZXuK6ntJ_yJKOrJThhmO-JbhG0ogp3jmF9R95dXvI9WFWLO_4 --claim-rooms 45ccf9dd-4893-4fda-b013-cfe2f37a6459 --claim-url https://app.netdata.cloud',
-  cwd     => '/tmp',
-  path    => ['/usr/bin', '/usr/sbin'],
-  creates => '/usr/sbin/netdata',
+# let's add speedtest.net cli, it's always handy to have around
+exec {'/usr/bin/curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo /usr/bin/bash':
+  creates => '/etc/apt/sources.list.d/ookla_speedtest-cli.list',
 }
-*/
 
 } # end base_module
