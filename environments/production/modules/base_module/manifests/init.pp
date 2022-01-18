@@ -182,7 +182,7 @@ file { '/etc/hosts':
 # let's make sure our hostname is correct
 file {'/etc/hostname':
     ensure  => present,
-    content => "#managed by puppet\n${::hostname}.x86txt.lan\n"
+    content => "#managed by puppet\n${::hostname}\n"
 }
 
 # make sure puppet isn't running, since we're masterless
