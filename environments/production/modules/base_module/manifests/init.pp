@@ -13,7 +13,7 @@ file {'/etc/apt/sources.list':
 exec {'apt refresh':
   command     => '/usr/bin/apt clean && /usr/bin/apt update',
   refreshonly => true,
-  subscribe   => File['/etc/apt/sources.list'],
+  subscribe   => [ File['/etc/apt/sources.list'], Exec['/usr/bin/curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo /usr/bin/bash'] ]
 }
 
 ## install necessary packages
@@ -46,13 +46,6 @@ file_line {'puppet sequence':
   ensure => present,
   path   => '/etc/bash.bashrc',
   line   => 'alias runpup="cd /etc/puppetlabs/code && /usr/bin/git pull && /usr/bin/puppet apply /etc/puppetlabs/code/manifests/site.pp"',
-}
-
-# tell dhclient ot send fqdn to dhcp server for dyndns registration
-file_line {'dhclient update':
-  ensure => present,
-  path   => '/etc/dhcp/dhclient.conf',
-  line   => 'send fqdn.server-update on;',
 }
 
 # keep root cron up-to-date
@@ -180,17 +173,16 @@ exec { '/sbin/reboot --force':
   refreshonly => true,
 }
 
-
+# let's make sure our hosts file is correct
 file { '/etc/hosts':
     ensure  => present,
     content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n",
-  }
+}
 
 # let's make sure our hostname is correct
 file {'/etc/hostname':
     ensure  => present,
     content => "#managed by puppet\n${::hostname}.x86txt.lan\n"
-  }
 }
 
 # make sure puppet isn't running, since we're masterless
