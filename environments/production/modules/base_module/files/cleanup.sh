@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 #Stop services for cleanup
 sudo service rsyslog stop
 
@@ -25,21 +27,9 @@ cat << 'EOL' | sudo tee /etc/rc.local
 #
 # rc.local
 #
-# This script is executed at the end of each multiuser runlevel.
-# Make sure that the script will "" on success or any other
-# value on error.
-#
-# In order to enable or disable this script just change the execution
-# bits.
-#
-# By default this script does nothing.
-# dynamically create hostname (optional)
-#if hostname | grep localhost; then
-#    hostnamectl set-hostname "$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13 ; echo '')"
-#fi
 test -f /etc/ssh/ssh_host_rsa_key || dpkg-reconfigure openssh-server
-test -f /etc/machine-id || systemd-machine-id-setup
-cd /etc/puppetlabs/code && /usr/bin/git pull && /opt/puppetlabs/bin/puppet apply /etc/puppetlabs/code/manifests/site.pp
+cd /etc/puppet/code && /usr/bin/git pull && /usr/bin/puppet apply /etc/puppet/code/manifests/site.pp
+test -f /etc/machine-id || systemd-machine-id-setup && reboot && rm -f /etc/rc.local
 exit 0
 EOL
 
@@ -53,11 +43,10 @@ apt clean
 sudo cloud-init clean --logs
 
 #cleanup shell history
-cat /dev/null > ~/.bash_history && history -c
-history -w
+omz_history -c
 
 # final apt update
 apt update
 
 #shutdown
-shutdown -h now
+#shutdown -h now
