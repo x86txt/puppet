@@ -117,6 +117,14 @@ ssh_authorized_key { 'matt_ssh_key2':
   key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIAjd6bCh+wk7Gksji1Q/73mnSTYEGhLeXzxHkkMhdXWI',
 }
 
+file {'/home/matt/.zshrc':
+  ensure  => present,
+  user    => 'matt',
+  group   => 'matt',
+  source  => 'puppet:///modules/base_module/common/.zshrc',
+  require => User['matt'],
+}
+
 ## let's enable passwordless sudo
 file { '/etc/sudoers':
   ensure => present,
