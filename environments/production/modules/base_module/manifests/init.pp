@@ -105,21 +105,21 @@ user { 'matt':
 
 ssh_authorized_key { 'matt_ssh_key':
   ensure => present,
-  user   => 'matt',
+  owner  => 'matt',
   type   => 'ssh-ed25519',
   key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIFc6qozK4DqC5hxsi2ifrFsDY64ytgI4xQKQ+Vv6RYRw',
 }
 
 ssh_authorized_key { 'matt_ssh_key2':
   ensure => present,
-  user   => 'matt',
+  owner  => 'matt',
   type   => 'ssh-ed25519',
   key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIAjd6bCh+wk7Gksji1Q/73mnSTYEGhLeXzxHkkMhdXWI',
 }
 
 file {'/home/matt/.zshrc':
   ensure  => present,
-  user    => 'matt',
+  owner   => 'matt',
   group   => 'matt',
   source  => 'puppet:///modules/base_module/common/.zshrc',
   require => User['matt'],
