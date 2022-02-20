@@ -99,7 +99,7 @@ service { 'snmpd':
 user { 'matt':
   ensure         => present,
   groups         => 'sudo',
-  createhome     => true,
+  managehome     => true,
   purge_ssh_keys => '/home/matt/.ssh/authorized_keys',
 }
 
