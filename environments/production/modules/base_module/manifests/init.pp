@@ -131,7 +131,7 @@ file { '/etc/sudoers':
   owner  => 'root',
   group  => 'root',
   mode   => '0440',
-  source => 'puppet:///modules/base_module/common/sudoers'
+  source => 'puppet:///modules/base_module/common/sudoers',
 }
 
 ## Let's customize our motd with screenfetch
