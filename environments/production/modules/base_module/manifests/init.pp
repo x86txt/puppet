@@ -239,6 +239,23 @@ exec {'/usr/sbin/netplan apply':
                   File['/etc/netplan/99-netcfg-vmware.yaml'] ]
 }
 
+# let's add our x86txt local ca
+file {'/usr/local/share/ca-certificates/x86txt-ca.crt':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0644',
+  source => 'puppet:///modules/base_module/common/ssl/x86txt.lan.crt',
+  notify => Exec['refresh-ca'],
+}
+
+# if any ca certs are added. let's refresh our ca keystore
+exec {'refresh-ca':
+  command     => '/usr/sbin/update-ca-certificates',
+  subscribe   => File['/usr/local/share/ca-certificates/x86txt-ca.crt'],
+  refreshonly => true,
+}
+
 /*
 # let's add speedtest.net cli, it's always handy to have around
 exec {'/usr/bin/curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo /usr/bin/bash':
