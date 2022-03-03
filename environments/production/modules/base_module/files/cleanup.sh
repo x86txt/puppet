@@ -21,6 +21,10 @@ rm -f /etc/ssh/ssh_host_*
 # remove machine-id and create blank one
 rm -f /etc/machine-id ; touch /etc/machine-id
 
+# clear all mailboxes
+rm -f /var/mail/*
+rm -f /var/spool/mail/*
+
 #add check for ssh keys on reboot...regenerate if neccessary
 cat << 'EOL' | sudo tee /etc/rc.local
 #!/bin/sh -e
