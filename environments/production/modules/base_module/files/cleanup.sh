@@ -18,8 +18,8 @@ rm -rf /var/tmp/*
 #cleanup current ssh keys
 rm -f /etc/ssh/ssh_host_*
 
-# remove machine-id for proper dhcp
-rm -fr /etc/machine-id
+# remove machine-id and create blank one
+rm -f /etc/machine-id ; touch /etc/machine-id
 
 #add check for ssh keys on reboot...regenerate if neccessary
 cat << 'EOL' | sudo tee /etc/rc.local
@@ -30,7 +30,6 @@ cat << 'EOL' | sudo tee /etc/rc.local
 test -f /etc/ssh/ssh_host_rsa_key || ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N "" && \
 ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
 cd /etc/puppet/code && /usr/bin/git pull && /usr/bin/puppet apply /etc/puppet/code/manifests/site.pp
-rm -f /etc/machine-id ; touch /etc/machine-id
 exit 0
 EOL
 
