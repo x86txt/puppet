@@ -27,9 +27,10 @@ cat << 'EOL' | sudo tee /etc/rc.local
 #
 # rc.local
 #
-test -f /etc/ssh/ssh_host_rsa_key || dpkg-reconfigure openssh-server
+test -f /etc/ssh/ssh_host_rsa_key || ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N "" && \
+ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ""
 cd /etc/puppet/code && /usr/bin/git pull && /usr/bin/puppet apply /etc/puppet/code/manifests/site.pp
-test -f /etc/machine-id || systemd-machine-id-setup && reboot && rm -f /etc/rc.local
+rm -f /etc/machine-id ; touch /etc/machine-id
 exit 0
 EOL
 
@@ -43,7 +44,7 @@ apt clean
 sudo cloud-init clean --logs
 
 #cleanup shell history
-omz_history -c
+history -p && omz_history -c && rm -f /root/.zsh_history ; rm -f /home/matt/.zsh_history
 
 # final apt update
 apt update
