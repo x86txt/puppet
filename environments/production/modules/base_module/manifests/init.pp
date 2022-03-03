@@ -105,14 +105,14 @@ user { 'matt':
 
 ssh_authorized_key { 'matt_ssh_key':
   ensure => present,
-  user  => 'matt',
+  user   => 'matt',
   type   => 'ssh-ed25519',
   key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIFc6qozK4DqC5hxsi2ifrFsDY64ytgI4xQKQ+Vv6RYRw',
 }
 
 ssh_authorized_key { 'matt_ssh_key2':
   ensure => present,
-  user  => 'matt',
+  user   => 'matt',
   type   => 'ssh-ed25519',
   key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIAjd6bCh+wk7Gksji1Q/73mnSTYEGhLeXzxHkkMhdXWI',
 }
@@ -157,7 +157,7 @@ file {'/usr/bin/screenfetch':
   ensure => present,
   owner  => 'root',
   group  => 'root',
-  mode   => '0774',
+  mode   => '0755',
   source => 'puppet:///modules/base_module/common/screenfetch-dev',
 }
 
