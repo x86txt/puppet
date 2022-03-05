@@ -104,4 +104,4 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # auto-update omz, but silently
-omz update > /dev/null
+omz update > /dev/null && echo "Worked ..."
