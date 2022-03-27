@@ -274,12 +274,4 @@ file {'/root/.iterm2_shell_integration.zsh':
   source => 'https://iterm2.com/shell_integration/zsh',
 }
 
-
-/*
-# let's add speedtest.net cli, it's always handy to have around
-exec {'/usr/bin/curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo /usr/bin/bash':
-  creates => '/etc/apt/sources.list.d/ookla_speedtest-cli.list',
-}
-*/
-
 } # end base_module
