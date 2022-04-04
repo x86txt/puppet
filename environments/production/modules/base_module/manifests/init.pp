@@ -53,30 +53,33 @@ file {'/etc/filebeat/filebeat.yml':
 }
 
 # place kibana conf files
-file {'/etc/filebeat/packetbeat.yml':
-  ensure => present,
-  owner  => 'root',
-  group  => 'root',
-  mode   => '0600',
-  source => 'puppet:///modules/base_module/common/packetbeat.yml',
+file {'/etc/packetbeat/packetbeat.yml':
+  ensure  => present,
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0600',
+  source  => 'puppet:///modules/base_module/common/packetbeat.yml',
+  require => Package[$base_packages],
 }
 
 # place kibana conf files
-file {'/etc/filebeat/heartbeat.yml':
-  ensure => present,
-  owner  => 'root',
-  group  => 'root',
-  mode   => '0600',
-  source => 'puppet:///modules/base_module/common/heartbeat.yml',
+file {'/etc/heartbeat/heartbeat.yml':
+  ensure  => present,
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0600',
+  source  => 'puppet:///modules/base_module/common/heartbeat.yml',
+  require => Package[$base_packages],
 }
 
 # place kibana conf files
-file {'/etc/filebeat/metricbeat.yml':
-  ensure => present,
-  owner  => 'root',
-  group  => 'root',
-  mode   => '0600',
-  source => 'puppet:///modules/base_module/common/metricbeat.yml',
+file {'/etc/metricbeat/metricbeat.yml':
+  ensure  => present,
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0600',
+  source  => 'puppet:///modules/base_module/common/metricbeat.yml',
+  require => Package[$base_packages],
 }
 
 # configure services for kibana
@@ -90,21 +93,21 @@ service {'filebeat':
 service {'heartbeat-elastic':
   ensure    => running,
   enable    => true,
-  subscribe => File['/etc/filebeat/heartbeat.yml'],
+  subscribe => File['/etc/heartbeat/heartbeat.yml'],
 }
 
 # configure services for kibana
 service {'metricbeat':
   ensure    => running,
   enable    => true,
-  subscribe => File['/etc/filebeat/metricbeat.yml'],
+  subscribe => File['/etc/metricbeat/metricbeat.yml'],
 }
 
 # configure services for kibana
 service {'packetbeat':
   ensure    => running,
   enable    => true,
-  subscribe => File['/etc/filebeat/packetbeat.yml'],
+  subscribe => File['/etc/packetbeat/packetbeat.yml'],
 }
 
 # clear puppet ruby warning
