@@ -35,7 +35,7 @@ exec {'apt refresh':
 ## install necessary packages
 $base_packages = ['net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'tuned-utils-systemtap', 'curl',
                   'mlocate', 'dnsutils', 'whois', 'tuned','traceroute', 'nload',
-                  'snmpd', 'lm-sensors', 'xz-utils', 'tuned-utils', 'puppet', 'zsh', 'metricbeat', 'filebeat', 'packetbeat', 'heartbeat' ]
+                  'snmpd', 'lm-sensors', 'xz-utils', 'tuned-utils', 'puppet', 'zsh', 'metricbeat', 'filebeat', 'packetbeat', 'heartbeat-elastic' ]
 
 package { $base_packages:
   ensure  => latest,
@@ -87,7 +87,7 @@ service {'filebeat':
 }
 
 # configure services for kibana
-service {'heartbeat':
+service {'heartbeat-elastic':
   ensure    => running,
   enable    => true,
   subscribe => File['/etc/filebeat/heartbeat.yml'],
