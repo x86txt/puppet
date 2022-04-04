@@ -44,11 +44,12 @@ package { $base_packages:
 
 # place kibana conf files
 file {'/etc/filebeat/filebeat.yml':
-  ensure => present,
-  owner  => 'root',
-  group  => 'root',
-  mode   => '0600',
-  source => 'puppet:///modules/base_module/common/filebeat.yml',
+  ensure  => present,
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0600',
+  source  => 'puppet:///modules/base_module/common/filebeat.yml',
+  require => Package[$base_packages],
 }
 
 # place kibana conf files
