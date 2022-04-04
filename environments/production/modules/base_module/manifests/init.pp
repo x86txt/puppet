@@ -10,8 +10,8 @@ file {'/etc/apt/sources.list':
 }
 
 # add elasticsearch gpg key
-exec {'wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -':
-  command     => 'wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -',
+exec {'/usr/bin/wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | /usr/bin/apt-key add -':
+  command     => '/usr/bin/wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | /usr/bin/apt-key add -',
   refreshonly => true,
   subscribe   => File['/etc/apt/sources.list.d/elastic-7.x.list'],
 }
