@@ -9,20 +9,101 @@ file {'/etc/apt/sources.list':
   source => "puppet:///modules/base_module/common/${facts['os']['distro']['codename']}.apt.list",
 }
 
+# add elasticsearch gpg key
+exec {'wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -':
+  command     => 'wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -',
+  refreshonly => true,
+  subscribe   => File['/etc/apt/sources.list.d/elastic-7.x.list'],
+}
+
+# add kibana metricbeat and filebeat repos
+file {'/etc/apt/sources.list.d/elastic-7.x.list':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0644',
+  source => 'puppet:///modules/base_module/kibana.list',
+}
+
 # make sure we've got a clean apt cache
 exec {'apt refresh':
   command     => '/usr/bin/apt clean && /usr/bin/apt update',
   refreshonly => true,
-  subscribe   => File['/etc/apt/sources.list'],
+  subscribe   => [ File['/etc/apt/sources.list'], File['/etc/apt/sources.list.d/elastic-7.x.list'] ],
 }
 
 ## install necessary packages
 $base_packages = ['net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'tuned-utils-systemtap', 'curl',
                   'mlocate', 'dnsutils', 'whois', 'tuned','traceroute', 'nload',
-                  'snmpd', 'lm-sensors', 'xz-utils', 'tuned-utils', 'puppet', 'zsh']
+                  'snmpd', 'lm-sensors', 'xz-utils', 'tuned-utils', 'puppet', 'zsh', 'metricbeat', 'filebeat', 'packetbeat', 'heartbeat' ]
 
 package { $base_packages:
   ensure  => latest,
+  require => [ File['/etc/apt/sources.list'], File['/etc/apt/sources.list.d/elastic-7.x.list'] ],
+}
+
+# place kibana conf files
+file {'/etc/filebeat/filebeat.yml':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0600',
+  source => 'puppet:///modules/base_module/common/filebeat.yml',
+}
+
+# place kibana conf files
+file {'/etc/filebeat/packetbeat.yml':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0600',
+  source => 'puppet:///modules/base_module/common/packetbeat.yml',
+}
+
+# place kibana conf files
+file {'/etc/filebeat/heartbeat.yml':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0600',
+  source => 'puppet:///modules/base_module/common/heartbeat.yml',
+}
+
+# place kibana conf files
+file {'/etc/filebeat/metricbeat.yml':
+  ensure => present,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0600',
+  source => 'puppet:///modules/base_module/common/metricbeat.yml',
+}
+
+# configure services for kibana
+service {'filebeat':
+  ensure    => running,
+  enable    => true,
+  subscribe => File['/etc/filebeat/filebeat.yml'],
+}
+
+# configure services for kibana
+service {'heartbeat':
+  ensure    => running,
+  enable    => true,
+  subscribe => File['/etc/filebeat/heartbeat.yml'],
+}
+
+# configure services for kibana
+service {'metricbeat':
+  ensure    => running,
+  enable    => true,
+  subscribe => File['/etc/filebeat/metricbeat.yml'],
+}
+
+# configure services for kibana
+service {'packetbeat':
+  ensure    => running,
+  enable    => true,
+  subscribe => File['/etc/filebeat/packetbeat.yml'],
 }
 
 # clear puppet ruby warning

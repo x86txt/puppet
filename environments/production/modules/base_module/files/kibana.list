@@ -1,0 +1,3 @@
+# for elasticsearch and kibana
+deb https://artifacts.elastic.co/packages/oss-7.x/apt stable main
+deb https://artifacts.elastic.co/packages/7.x/apt stable main
