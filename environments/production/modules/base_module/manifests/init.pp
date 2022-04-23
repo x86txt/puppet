@@ -247,9 +247,9 @@ file {'/usr/bin/screenfetch':
 }
 
 # remove landscape info
-file {'/etc/update-motd.d/50-landscape-sysinfo':
-  ensure => absent,
-}
+#file {'/etc/update-motd.d/50-landscape-sysinfo':
+#  ensure => absent,
+#}
 
 # prefer ipv4, since gigamonster is faster than spectrum
 file { '/etc/gai.conf':
