@@ -192,7 +192,7 @@ ssh_authorized_key { 'matt_ssh_key':
   ensure => present,
   user   => 'matt',
   type   => 'ssh-ed25519',
-  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIFc6qozK4DqC5hxsi2ifrFsDY64ytgI4xQKQ+Vv6RYRw',
+  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIKY0rVQzR8Wu4puq5dJOYPe2pSPNT4kTY1k8UtBzE1Vr',
 }
 
 ssh_authorized_key { 'matt_ssh_key2':
