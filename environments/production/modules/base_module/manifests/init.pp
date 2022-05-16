@@ -192,14 +192,7 @@ ssh_authorized_key { 'matt_ssh_key':
   ensure => present,
   user   => 'matt',
   type   => 'ssh-ed25519',
-  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIKY0rVQzR8Wu4puq5dJOYPe2pSPNT4kTY1k8UtBzE1Vr',
-}
-
-ssh_authorized_key { 'matt_ssh_key2':
-  ensure => present,
-  user   => 'matt',
-  type   => 'ssh-ed25519',
-  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIAjd6bCh+wk7Gksji1Q/73mnSTYEGhLeXzxHkkMhdXWI',
+  key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIIN7FM6SYloQXfxyFOekumtgUOLpyEFCJ09a6xXLh2I5',
 }
 
 file {'/home/matt/.zshrc':
