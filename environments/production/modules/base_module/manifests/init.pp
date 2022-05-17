@@ -9,27 +9,12 @@ file {'/etc/apt/sources.list':
   source => "puppet:///modules/base_module/common/${facts['os']['distro']['codename']}.apt.list",
 }
 
-# add elasticsearch gpg key
-exec {'/usr/bin/wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | /usr/bin/apt-key add -':
-  command     => '/usr/bin/wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | /usr/bin/apt-key add -',
-  refreshonly => true,
-  subscribe   => File['/etc/apt/sources.list.d/elastic-7.x.list'],
-}
-
-# add kibana metricbeat and filebeat repos
-file {'/etc/apt/sources.list.d/elastic-7.x.list':
-  ensure => present,
-  owner  => 'root',
-  group  => 'root',
-  mode   => '0644',
-  source => 'puppet:///modules/base_module/kibana.list',
-}
 
 # make sure we've got a clean apt cache
 exec {'apt refresh':
   command     => '/usr/bin/apt clean && /usr/bin/apt update',
   refreshonly => true,
-  subscribe   => [ File['/etc/apt/sources.list'], File['/etc/apt/sources.list.d/elastic-7.x.list'] ],
+  subscribe   => File['/etc/apt/sources.list']
 }
 
 ## install necessary packages
@@ -39,7 +24,7 @@ $base_packages = ['net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'tuned-utils-
 
 package { $base_packages:
   ensure  => latest,
-  require => [ File['/etc/apt/sources.list'], File['/etc/apt/sources.list.d/elastic-7.x.list'] ],
+  require => File['/etc/apt/sources.list']
 }
 
 
