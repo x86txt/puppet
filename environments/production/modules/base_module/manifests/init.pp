@@ -42,73 +42,6 @@ package { $base_packages:
   require => [ File['/etc/apt/sources.list'], File['/etc/apt/sources.list.d/elastic-7.x.list'] ],
 }
 
-# place kibana conf files
-file {'/etc/filebeat/filebeat.yml':
-  ensure  => present,
-  owner   => 'root',
-  group   => 'root',
-  mode    => '0600',
-  source  => 'puppet:///modules/base_module/common/filebeat.yml',
-  require => Package[$base_packages],
-}
-
-# place kibana conf files
-file {'/etc/packetbeat/packetbeat.yml':
-  ensure  => present,
-  owner   => 'root',
-  group   => 'root',
-  mode    => '0600',
-  source  => 'puppet:///modules/base_module/common/packetbeat.yml',
-  require => Package[$base_packages],
-}
-
-# place kibana conf files
-file {'/etc/heartbeat/heartbeat.yml':
-  ensure  => present,
-  owner   => 'root',
-  group   => 'root',
-  mode    => '0600',
-  source  => 'puppet:///modules/base_module/common/heartbeat.yml',
-  require => Package[$base_packages],
-}
-
-# place kibana conf files
-file {'/etc/metricbeat/metricbeat.yml':
-  ensure  => present,
-  owner   => 'root',
-  group   => 'root',
-  mode    => '0600',
-  source  => 'puppet:///modules/base_module/common/metricbeat.yml',
-  require => Package[$base_packages],
-}
-
-# configure services for kibana
-service {'filebeat':
-  ensure    => running,
-  enable    => true,
-  subscribe => File['/etc/filebeat/filebeat.yml'],
-}
-
-# configure services for kibana
-service {'heartbeat-elastic':
-  ensure    => running,
-  enable    => true,
-  subscribe => File['/etc/heartbeat/heartbeat.yml'],
-}
-
-# configure services for kibana
-service {'metricbeat':
-  ensure    => running,
-  enable    => true,
-  subscribe => File['/etc/metricbeat/metricbeat.yml'],
-}
-
-# configure services for kibana
-service {'packetbeat':
-  ensure    => running,
-  enable    => true,
-  subscribe => File['/etc/packetbeat/packetbeat.yml'],
-}
 
 # clear puppet ruby warning
 file {'/etc/profile.d/disableRubyPuppetWarn.sh':
@@ -253,11 +186,13 @@ file { '/etc/gai.conf':
   source => 'puppet:///modules/base_module/common/gai.conf',
 }
 
+/*
 # reboot if gai.conf modified
 exec { '/sbin/reboot --force':
   subscribe   => File['/etc/gai.conf'],
   refreshonly => true,
 }
+*/
 
 # let's make sure our hosts file is correct
 file { '/etc/hosts':
