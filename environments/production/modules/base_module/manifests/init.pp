@@ -9,7 +9,6 @@ file {'/etc/apt/sources.list':
   source => "puppet:///modules/base_module/common/${facts['os']['distro']['codename']}.apt.list",
 }
 
-
 # make sure we've got a clean apt cache
 exec {'apt refresh':
   command     => '/usr/bin/apt clean && /usr/bin/apt update',
@@ -20,7 +19,7 @@ exec {'apt refresh':
 ## install necessary packages
 $base_packages = ['net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'tuned-utils-systemtap', 'curl',
                   'mlocate', 'dnsutils', 'whois', 'tuned','traceroute', 'nload',
-                  'snmpd', 'lm-sensors', 'xz-utils', 'tuned-utils', 'puppet', 'zsh', 'metricbeat', 'filebeat', 'packetbeat', 'heartbeat-elastic' ]
+                  'snmpd', 'lm-sensors', 'xz-utils', 'tuned-utils', 'puppet', 'zsh' ]
 
 package { $base_packages:
   ensure  => latest,
