@@ -1,0 +1,27 @@
+deb http://atl.mirrors.clouvider.net/ubuntu jammy main restricted
+deb-src http://atl.mirrors.clouvider.net/ubuntu jammy main restricted
+
+deb http://atl.mirrors.clouvider.net/ubuntu jammy-updates main restricted
+deb-src http://atl.mirrors.clouvider.net/ubuntu jammy-updates main restricted
+deb http://atl.mirrors.clouvider.net/ubuntu jammy universe
+deb-src http://atl.mirrors.clouvider.net/ubuntu jammy universe
+deb http://atl.mirrors.clouvider.net/ubuntu jammy-updates universe
+deb-src http://atl.mirrors.clouvider.net/ubuntu jammy-updates universe
+
+deb http://atl.mirrors.clouvider.net/ubuntu jammy multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu jammy multiverse
+deb http://atl.mirrors.clouvider.net/ubuntu jammy-updates multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu jammy-updates multiverse
+
+deb http://atl.mirrors.clouvider.net/ubuntu jammy-backports main restricted universe multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu jammy-backports main restricted universe multiverse
+
+#deb http://us.archive.canonical.com/ubuntu jammy partner
+#deb-src http://us.archive.canonical.com/ubuntu jammy partner
+
+deb http://atl.mirrors.clouvider.net/ubuntu jammy-security main restricted
+deb-src http://atl.mirrors.clouvider.net/ubuntu jammy-security main restricted
+deb http://atl.mirrors.clouvider.net/ubuntu jammy-security universe
+deb-src http://atl.mirrors.clouvider.net/ubuntu jammy-security universe
+deb http://atl.mirrors.clouvider.net/ubuntu jammy-security multiverse
+deb-src http://atl.mirrors.clouvider.net/ubuntu jammy-security multiverse
