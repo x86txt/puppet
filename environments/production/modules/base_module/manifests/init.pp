@@ -27,7 +27,6 @@ package { $base_packages:
   require => File['/etc/apt/sources.list']
 }
 
-
 # clear puppet ruby warning
 file {'/etc/profile.d/disableRubyPuppetWarn.sh':
   ensure  => present,
@@ -171,14 +170,6 @@ file { '/etc/gai.conf':
   source => 'puppet:///modules/base_module/common/gai.conf',
 }
 
-/*
-# reboot if gai.conf modified
-exec { '/sbin/reboot --force':
-  subscribe   => File['/etc/gai.conf'],
-  refreshonly => true,
-}
-*/
-
 # let's make sure our hosts file is correct
 file { '/etc/hosts':
     ensure  => present,
@@ -262,6 +253,5 @@ file {'/usr/local/bin/cleanup.sh':
   mode   => '0700',
   source => 'puppet:///modules/base_module/cleanup.sh',
 }
-
 
 } # end base_module
