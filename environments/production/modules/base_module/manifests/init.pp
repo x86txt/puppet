@@ -17,9 +17,10 @@ exec {'apt refresh':
 }
 
 ## install necessary packages
-$base_packages = ['net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'tuned-utils-systemtap', 'curl',
+$base_packages = [ 'net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'tuned-utils-systemtap', 'curl',
                   'mlocate', 'dnsutils', 'whois', 'tuned','traceroute', 'nload', 'chrony',
-                  'snmpd', 'lm-sensors', 'xz-utils', 'tuned-utils', 'puppet', 'rsyslog', 'ufw', 'zsh' ]
+                  'snmpd', 'lm-sensors', 'xz-utils', 'tuned-utils', 'puppet', 'rsyslog', 'ufw', 'zsh',
+                  'ntpdate' ]
 
 package { $base_packages:
   ensure  => latest,
