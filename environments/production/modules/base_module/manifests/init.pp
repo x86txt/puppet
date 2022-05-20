@@ -20,7 +20,7 @@ exec {'apt refresh':
 $base_packages = [ 'net-tools', 'nano', 'jq', 'git', 'htop', 'gpg', 'tuned-utils-systemtap', 'curl',
                   'mlocate', 'dnsutils', 'whois', 'tuned','traceroute', 'nload', 'chrony',
                   'snmpd', 'lm-sensors', 'xz-utils', 'tuned-utils', 'puppet', 'rsyslog', 'ufw', 'zsh',
-                  'ntpdate', 'cron', 's-nail' ]
+                  'ntpdate', 'cron', 's-nail', 'open-vm-tools' ]
 
 package { $base_packages:
   ensure  => latest,
