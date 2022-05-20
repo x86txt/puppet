@@ -253,6 +253,7 @@ exec {'refresh-ca':
   refreshonly => true,
 }
 
+/*
 # add our iTerm2 shell integration for zsh
 file {'/home/matt/.iterm2_shell_integration.zsh':
   ensure => present,
@@ -270,5 +271,6 @@ file {'/root/.iterm2_shell_integration.zsh':
   mode   => '0600',
   source => 'https://iterm2.com/shell_integration/zsh',
 }
+*/
 
 } # end base_module
