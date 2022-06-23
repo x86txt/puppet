@@ -10,5 +10,5 @@ deb https://us.archive.ubuntu.com/ubuntu/ jammy-security main restricted univers
 deb https://us.archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
 # deb-src https://archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
 
-deb http://us.archive.canonical.com/ubuntu/ jammy partner
+# deb http://us.archive.canonical.com/ubuntu/ jammy partner
 # deb-src http://archive.canonical.com/ubuntu/ jammy partner
