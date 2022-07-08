@@ -173,13 +173,13 @@ file { '/etc/gai.conf':
 # let's make sure our hosts file is correct
 file { '/etc/hosts':
     ensure  => present,
-    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.x86txt.lan ${::hostname}\n",
+    content => "# managed by puppet\n127.0.0.1 localhost localhost.localdomain\n${::ipaddress} ${::hostname}.secunit.lan ${::hostname}\n",
 }
 
 # let's make sure our hostname is correct
 file {'/etc/hostname':
     ensure  => present,
-    content => "#managed by puppet\n${::hostname}\n"
+    content => "#managed by puppet\n${::hostname}.secunit.lan\n"
 }
 
 # make sure puppet isn't running, since we're masterless
